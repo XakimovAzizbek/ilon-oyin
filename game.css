@@ -1,0 +1,228 @@
+/* Umumiy sozlamalar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    background: radial-gradient(circle at top, #1a1c29 0%, #0e1017 100%);
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+}
+
+/* Yuqori qism (Header) */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.back-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #ffffff;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-btn:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.back-icon {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #ffffff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-spacer {
+    width: 40px; /* Ortga tugmasi bilan teng joy egallaydi va sarlavhani markazda saqlaydi */
+}
+
+/* Markaziy qism (Main Content) */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 30px;
+}
+
+.section-intro {
+    position: relative;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.glow-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: #0088cc;
+    filter: blur(100px);
+    opacity: 0.15;
+    z-index: -1;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #8a92b2;
+    line-height: 1.5;
+}
+
+/* Tugmalar joylashuvi va dizayni */
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.menu-link {
+    text-decoration: none;
+    width: 100%;
+}
+
+.menu-btn {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    border: none;
+    border-radius: 16px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    text-align: left;
+}
+
+.menu-btn:active {
+    transform: scale(0.98);
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-icon {
+    font-size: 28px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.btn-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.btn-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.btn-desc {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Har bir rejim uchun alohida chiroyli gradientlar */
+.mode-random {
+    background: linear-gradient(135deg, #0088cc 0%, #0055ff 100%);
+    box-shadow: 0 4px 15px rgba(0, 85, 255, 0.3);
+}
+
+.mode-create {
+    background: linear-gradient(135deg, #2e1065 0%, #3b0764 100%);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.15);
+}
+
+.mode-search {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Chiroyli nur oqimi effekti (Shine) */
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    animation: shine 4s infinite ease-in-out;
+}
+
+/* Rejimlarga ko'ra nur oqimi vaqtini farqlash */
+.mode-create .btn-glow { animation-delay: 1.3s; }
+.mode-search .btn-glow { animation-delay: 2.6s; }
+
+/* Pastki qism (Footer) */
+.footer {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.brand-text {
+    font-size: 10px;
+    color: #4b5563;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+/* Animatsiyalar */
+@keyframes shine {
+    0% { left: -100%; }
+    20%, 100% { left: 100%; }
+}
