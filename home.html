@@ -5,20 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DEXO Snake - Bosh Sahifa</title>
     <link rel="stylesheet" href="home.css">
+
+    <!-- Telegram Mini App SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <!-- Firebase CDN (compat — import shart emas) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 </head>
 <body>
 
     <div class="app-container">
         <header class="header">
             <div class="user-info">
-                <div class="avatar" id="user-avatar">U</div>
-                <span id="username">Yuklanmoqda...</span>
+                <div class="avatar" id="user-avatar">?</div>
+                <div class="user-text">
+                    <span id="username">Yuklanmoqda...</span>
+                    <span id="user-id" class="user-id-text"></span>
+                </div>
             </div>
             <div class="balance-card">
                 <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png" alt="TON" class="ton-logo">
                 <div class="balance-text">
-                    <span class="balance-title">Balans</span>
+                    <span class="balance-title">BALANS</span>
                     <span id="ton-balance" class="balance-amount">0.00000 TON</span>
                 </div>
             </div>
@@ -31,13 +40,11 @@
                 <h2>DEXO SNAKE MULTIPLAYER</h2>
                 <p>Zonada omon qoling, ovqatlaning va TON ishlang!</p>
             </div>
-            
-            <a href="game.html" style="text-decoration: none; width: 100%;">
-                <button id="btn-multiplayer" class="play-btn">
-                    <span>MULTIPLAYER GAME</span>
-                    <div class="btn-glow"></div>
-                </button>
-            </a>
+
+            <button id="btn-multiplayer" class="play-btn">
+                <span>MULTIPLAYER GAME</span>
+                <div class="btn-glow"></div>
+            </button>
         </main>
 
         <nav class="bottom-nav">
@@ -56,6 +63,7 @@
         </nav>
     </div>
 
-    <script type="module" src="home.js"></script>
+    <!-- type="module" YO'Q — oddiy script -->
+    <script src="home.js"></script>
 </body>
 </html>

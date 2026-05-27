@@ -244,3 +244,16 @@ body {
     0% { left: -100%; }
     20%, 100% { left: 100%; }
 }
+
+/* Telegram ID ko'rsatish */
+.user-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.user-id-text {
+    font-size: 10px;
+    color: #5c6390;
+    letter-spacing: 0.3px;
+}
