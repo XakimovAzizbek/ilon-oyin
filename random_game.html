@@ -15,8 +15,6 @@
 
 <!-- ========== QIDIRUV EKRANI ========== -->
 <div id="search-screen" class="screen">
-
-    <!-- Fon -->
     <div class="bg-layer">
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
@@ -24,7 +22,6 @@
         <div class="grid-lines"></div>
     </div>
 
-    <!-- Header -->
     <header class="header">
         <a href="game.html" class="back-btn" id="back-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -36,7 +33,6 @@
         <div class="spacer"></div>
     </header>
 
-    <!-- Markaziy content -->
     <main class="search-main">
 
         <!-- BOSHLASH holati -->
@@ -48,23 +44,11 @@
                 <div class="idle-ring ring3"></div>
             </div>
             <h2 class="state-title">Tezkor O'yin</h2>
-            <p class="state-desc">
-                Tugmani bosing — biz siz uchun<br>
-                avtomatik xona topib beramiz!
-            </p>
+            <p class="state-desc">Tugmani bosing — biz siz uchun<br>avtomatik xona topib beramiz!</p>
             <div class="info-chips">
-                <div class="chip">
-                    <span class="chip-icon">⚡</span>
-                    <span>Tezkor ulanish</span>
-                </div>
-                <div class="chip">
-                    <span class="chip-icon">👥</span>
-                    <span>30 o'yinchigacha</span>
-                </div>
-                <div class="chip">
-                    <span class="chip-icon">💰</span>
-                    <span>+0.0001 TON</span>
-                </div>
+                <div class="chip"><span class="chip-icon">⚡</span><span>Tezkor ulanish</span></div>
+                <div class="chip"><span class="chip-icon">👥</span><span>30 o'yinchigacha</span></div>
+                <div class="chip"><span class="chip-icon">💰</span><span>+0.0001 TON</span></div>
             </div>
             <button id="btn-find" class="find-btn">
                 <span>XONA TOPISH</span>
@@ -104,9 +88,7 @@
                     <span class="step-status" id="status-3">⏳</span>
                 </div>
             </div>
-            <button id="btn-cancel" class="cancel-btn">
-                <span>Bekor qilish</span>
-            </button>
+            <button id="btn-cancel" class="cancel-btn"><span>Bekor qilish</span></button>
         </div>
 
         <!-- TOPILDI holati -->
@@ -134,7 +116,7 @@
                 </div>
                 <div class="found-row">
                     <span class="found-lbl">Holat</span>
-                    <span class="found-val green-val">Kutilmoqda</span>
+                    <span class="found-val green-val">O'yinga kirilmoqda</span>
                 </div>
             </div>
             <div class="enter-progress">
@@ -145,14 +127,11 @@
             </div>
         </div>
 
-        <!-- TOPILMADI / YANGI XONA holati -->
+        <!-- YANGI XONA holati -->
         <div id="state-new" class="state-box hidden">
             <div class="new-icon">🛠️</div>
             <h2 class="state-title">Bo'sh Xona Yo'q</h2>
-            <p class="state-desc">
-                Hozir bo'sh xona topilmadi.<br>
-                Siz uchun yangi xona ochilmoqda...
-            </p>
+            <p class="state-desc">Siz uchun yangi xona ochilmoqda...</p>
             <div class="creating-anim">
                 <div class="creating-dot cd1"></div>
                 <div class="creating-dot cd2"></div>
@@ -161,6 +140,66 @@
         </div>
 
     </main>
+</div>
+
+<!-- ========== O'YIN EKRANI ========== -->
+<div id="game-screen" class="screen hidden">
+    <div class="game-hud">
+        <div class="hud-chip">
+            <span class="hud-icon">💰</span>
+            <span id="hud-balance">0.00000</span>
+            <span class="hud-unit">TON</span>
+        </div>
+        <div class="hud-chip hud-center">
+            <span id="hud-score">5</span>
+            <span class="hud-unit">SEG</span>
+        </div>
+        <div class="hud-chip">
+            <span class="hud-icon">👥</span>
+            <span id="hud-players">1</span>
+        </div>
+    </div>
+
+    <canvas id="minimap" width="100" height="100"></canvas>
+
+    <div id="viewport">
+        <canvas id="game-canvas"></canvas>
+    </div>
+
+    <div id="joystick-zone">
+        <div id="joystick-base">
+            <div id="joystick-knob"></div>
+            <div class="joystick-ring"></div>
+        </div>
+    </div>
+
+    <button id="boost-btn" class="boost-btn">
+        <span>⚡</span>
+        <span class="boost-label">BOOST</span>
+    </button>
+</div>
+
+<!-- ========== O'LIM EKRANI ========== -->
+<div id="death-screen" class="screen hidden">
+    <div class="death-card">
+        <div class="death-icon">💀</div>
+        <h2 class="death-title">O'LDINGIZ!</h2>
+        <div class="death-stats">
+            <div class="d-stat">
+                <span class="d-val" id="death-score">0</span>
+                <span class="d-lbl">Uzunlik</span>
+            </div>
+            <div class="d-stat">
+                <span class="d-val ton-val" id="death-earned">+0.0000</span>
+                <span class="d-lbl">TON Yutildi</span>
+            </div>
+        </div>
+        <button id="btn-respawn" class="primary-btn">
+            <span>QAYTA URINISH</span>
+            <div class="btn-shimmer"></div>
+        </button>
+        <a href="game.html" class="secondary-link">← Menuga qaytish</a>
+    </div>
 </div>
 
 <script src="random_game.js"></script>
