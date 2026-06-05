@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DEXO Snake - Random Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="random_game.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<!-- ========== QIDIRUV EKRANI ========== -->
+<div id="search-screen" class="screen">
+
+    <!-- Fon -->
+    <div class="bg-layer">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+        <div class="grid-lines"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="game.html" class="back-btn" id="back-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+        </a>
+        <div class="page-title">RANDOM GAME</div>
+        <div class="spacer"></div>
+    </header>
+
+    <!-- Markaziy content -->
+    <main class="search-main">
+
+        <!-- BOSHLASH holati -->
+        <div id="state-idle" class="state-box">
+            <div class="idle-icon">
+                <span class="snake-emoji">🐍</span>
+                <div class="idle-ring ring1"></div>
+                <div class="idle-ring ring2"></div>
+                <div class="idle-ring ring3"></div>
+            </div>
+            <h2 class="state-title">Tezkor O'yin</h2>
+            <p class="state-desc">
+                Tugmani bosing — biz siz uchun<br>
+                avtomatik xona topib beramiz!
+            </p>
+            <div class="info-chips">
+                <div class="chip">
+                    <span class="chip-icon">⚡</span>
+                    <span>Tezkor ulanish</span>
+                </div>
+                <div class="chip">
+                    <span class="chip-icon">👥</span>
+                    <span>30 o'yinchigacha</span>
+                </div>
+                <div class="chip">
+                    <span class="chip-icon">💰</span>
+                    <span>+0.0001 TON</span>
+                </div>
+            </div>
+            <button id="btn-find" class="find-btn">
+                <span>XONA TOPISH</span>
+                <div class="btn-shimmer"></div>
+            </button>
+        </div>
+
+        <!-- QIDIRMOQDA holati -->
+        <div id="state-searching" class="state-box hidden">
+            <div class="radar-wrap">
+                <div class="radar-base">
+                    <div class="radar-sweep"></div>
+                    <div class="radar-dot d1"></div>
+                    <div class="radar-dot d2"></div>
+                    <div class="radar-dot d3"></div>
+                    <div class="radar-center">🐍</div>
+                    <div class="radar-ring rr1"></div>
+                    <div class="radar-ring rr2"></div>
+                    <div class="radar-ring rr3"></div>
+                </div>
+            </div>
+            <h2 class="state-title glow-text">Zona Qidirilmoqda...</h2>
+            <div class="search-steps">
+                <div class="step" id="step-1">
+                    <div class="step-dot"></div>
+                    <span>Firebase serverga ulanish</span>
+                    <span class="step-status" id="status-1">⏳</span>
+                </div>
+                <div class="step" id="step-2">
+                    <div class="step-dot"></div>
+                    <span>Bo'sh xonalar tekshirilmoqda</span>
+                    <span class="step-status" id="status-2">⏳</span>
+                </div>
+                <div class="step" id="step-3">
+                    <div class="step-dot"></div>
+                    <span>Xonaga qo'shilish</span>
+                    <span class="step-status" id="status-3">⏳</span>
+                </div>
+            </div>
+            <button id="btn-cancel" class="cancel-btn">
+                <span>Bekor qilish</span>
+            </button>
+        </div>
+
+        <!-- TOPILDI holati -->
+        <div id="state-found" class="state-box hidden">
+            <div class="found-icon-wrap">
+                <div class="found-circle">
+                    <svg class="checkmark" viewBox="0 0 52 52">
+                        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark-check" fill="none" d="M14 27l8 8 16-16"/>
+                    </svg>
+                </div>
+                <div class="found-burst b1"></div>
+                <div class="found-burst b2"></div>
+                <div class="found-burst b3"></div>
+            </div>
+            <h2 class="state-title success-text">Zona Topildi!</h2>
+            <div class="found-card">
+                <div class="found-row">
+                    <span class="found-lbl">Xona ID</span>
+                    <span class="found-val" id="found-room-id">—</span>
+                </div>
+                <div class="found-row">
+                    <span class="found-lbl">O'yinchilar</span>
+                    <span class="found-val" id="found-players">—</span>
+                </div>
+                <div class="found-row">
+                    <span class="found-lbl">Holat</span>
+                    <span class="found-val green-val">Kutilmoqda</span>
+                </div>
+            </div>
+            <div class="enter-progress">
+                <div class="enter-bar">
+                    <div class="enter-fill" id="enter-fill"></div>
+                </div>
+                <span class="enter-label">O'yinga o'tilmoqda...</span>
+            </div>
+        </div>
+
+        <!-- TOPILMADI / YANGI XONA holati -->
+        <div id="state-new" class="state-box hidden">
+            <div class="new-icon">🛠️</div>
+            <h2 class="state-title">Bo'sh Xona Yo'q</h2>
+            <p class="state-desc">
+                Hozir bo'sh xona topilmadi.<br>
+                Siz uchun yangi xona ochilmoqda...
+            </p>
+            <div class="creating-anim">
+                <div class="creating-dot cd1"></div>
+                <div class="creating-dot cd2"></div>
+                <div class="creating-dot cd3"></div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="random_game.js"></script>
+</body>
+</html>
