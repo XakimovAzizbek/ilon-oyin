@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DEXO Snake - Boost</title>
+    <link rel="stylesheet" href="boost.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<div class="app-wrap">
+
+    <!-- HEADER -->
+    <header class="bs-header">
+        <a href="home.html" class="bs-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+        </a>
+        <span class="bs-title">BOOST</span>
+        <div class="bs-bal-chip">
+            <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png"
+                 alt="TON" class="bs-bal-logo">
+            <span id="bs-balance">0.00000</span>
+        </div>
+    </header>
+
+    <!-- SCROLL -->
+    <div class="bs-scroll">
+
+        <!-- ===== KUNLIK TIZIM ===== -->
+        <div class="bs-section-label">🎟️ Kunlik Tizim</div>
+
+        <!-- Kunlik reward -->
+        <div class="daily-card" id="daily-card">
+            <div class="daily-left">
+                <div class="daily-icon-wrap">
+                    <span class="daily-icon">🎁</span>
+                </div>
+                <div class="daily-info">
+                    <span class="daily-title">Kunlik Sovg'a</span>
+                    <span class="daily-desc">Har kun kirganda 0.001 TON</span>
+                </div>
+            </div>
+            <button class="daily-btn" id="btn-daily">
+                <span id="daily-btn-txt">OLISH</span>
+            </button>
+        </div>
+
+        <!-- Streak -->
+        <div class="streak-card">
+            <div class="streak-top">
+                <span class="streak-label">🔥 Streak Bonus</span>
+                <span class="streak-badge" id="streak-count">0 kun</span>
+            </div>
+            <p class="streak-desc">7 kun ketma-ket kiring → <span class="streak-reward">+0.01 TON</span></p>
+            <div class="streak-dots" id="streak-dots">
+                <!-- JS bilan to'ldiriladi -->
+            </div>
+            <div class="streak-progress-wrap">
+                <div class="streak-progress-bar">
+                    <div class="streak-progress-fill" id="streak-fill"></div>
+                </div>
+                <span class="streak-progress-txt" id="streak-txt">0/7 kun</span>
+            </div>
+        </div>
+
+        <!-- ===== O'YIN ICHIDAGI BOOSTLAR ===== -->
+        <div class="bs-section-label">⚡ O'yin Ichidagi Boostlar</div>
+        <p class="bs-section-sub">O'yin paytida 30 sekund ishlaydi</p>
+
+        <div class="boost-grid">
+
+            <!-- Tezlik -->
+            <div class="boost-card" id="bc-speed">
+                <div class="boost-card-glow glow-cyan"></div>
+                <span class="boost-emoji">⚡</span>
+                <span class="boost-name">Tezlik</span>
+                <span class="boost-detail">2x tezlik · 30 sek</span>
+                <div class="boost-stock" id="stock-speed">
+                    Stok: <span id="cnt-speed">0</span>
+                </div>
+                <button class="boost-buy-btn" data-id="speed" data-price="0.005">
+                    <span>0.005 TON</span>
+                </button>
+            </div>
+
+            <!-- Qalqon -->
+            <div class="boost-card" id="bc-shield">
+                <div class="boost-card-glow glow-blue"></div>
+                <span class="boost-emoji">🛡️</span>
+                <span class="boost-name">Qalqon</span>
+                <span class="boost-detail">1x o'limdan saqlanish</span>
+                <div class="boost-stock" id="stock-shield">
+                    Stok: <span id="cnt-shield">0</span>
+                </div>
+                <button class="boost-buy-btn" data-id="shield" data-price="0.01">
+                    <span>0.01 TON</span>
+                </button>
+            </div>
+
+            <!-- Magnit -->
+            <div class="boost-card" id="bc-magnet">
+                <div class="boost-card-glow glow-purple"></div>
+                <span class="boost-emoji">🧲</span>
+                <span class="boost-name">Magnit</span>
+                <span class="boost-detail">Ovqatlarni tortib olish</span>
+                <div class="boost-stock" id="stock-magnet">
+                    Stok: <span id="cnt-magnet">0</span>
+                </div>
+                <button class="boost-buy-btn" data-id="magnet" data-price="0.008">
+                    <span>0.008 TON</span>
+                </button>
+            </div>
+
+            <!-- Portlash -->
+            <div class="boost-card" id="bc-blast">
+                <div class="boost-card-glow glow-red"></div>
+                <span class="boost-emoji">💥</span>
+                <span class="boost-name">Portlash</span>
+                <span class="boost-detail">Raqiblarni kichraytirish</span>
+                <div class="boost-stock" id="stock-blast">
+                    Stok: <span id="cnt-blast">0</span>
+                </div>
+                <button class="boost-buy-btn" data-id="blast" data-price="0.015">
+                    <span>0.015 TON</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- ===== DOIMIY BONUSLAR ===== -->
+        <div class="bs-section-label">📈 Doimiy Bonuslar</div>
+        <p class="bs-section-sub">Bir marta sotib olinadi, abadiy ishlaydi</p>
+
+        <div class="perm-list">
+
+            <!-- Boshlanish uzunligi -->
+            <div class="perm-card" id="pc-startlen">
+                <div class="perm-left">
+                    <span class="perm-emoji">🐍</span>
+                    <div class="perm-info">
+                        <span class="perm-name">Uzun Boshlanish</span>
+                        <span class="perm-desc">6 o'rniga 10 segment bilan boshlanadi</span>
+                    </div>
+                </div>
+                <button class="perm-btn" data-id="startlen" data-price="0.05">
+                    <span id="perm-txt-startlen">0.05 TON</span>
+                </button>
+            </div>
+
+            <!-- TON Multiplier -->
+            <div class="perm-card" id="pc-multiplier">
+                <div class="perm-left">
+                    <span class="perm-emoji">💰</span>
+                    <div class="perm-info">
+                        <span class="perm-name">TON Multiplier</span>
+                        <span class="perm-desc">O'ldirish uchun +0.0002 TON (2x)</span>
+                    </div>
+                </div>
+                <button class="perm-btn" data-id="multiplier" data-price="0.1">
+                    <span id="perm-txt-multiplier">0.1 TON</span>
+                </button>
+            </div>
+
+            <!-- Katta minimap -->
+            <div class="perm-card" id="pc-minimap">
+                <div class="perm-left">
+                    <span class="perm-emoji">👁️</span>
+                    <div class="perm-info">
+                        <span class="perm-name">Katta Minimap</span>
+                        <span class="perm-desc">Ko'rish maydoni 1.5x kattaroq</span>
+                    </div>
+                </div>
+                <button class="perm-btn" data-id="minimap" data-price="0.03">
+                    <span id="perm-txt-minimap">0.03 TON</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- spacer -->
+        <div style="height:8px"></div>
+
+    </div><!-- /bs-scroll -->
+
+    <!-- BOTTOM NAV -->
+    <nav class="bs-nav">
+        <a href="market.html" class="bs-nav-item">
+            <span class="bs-nav-ico">🛒</span>
+            <span class="bs-nav-lbl">Market</span>
+        </a>
+        <a href="boost.html" class="bs-nav-item bs-nav-active">
+            <span class="bs-nav-ico">⚡</span>
+            <span class="bs-nav-lbl">Boost</span>
+        </a>
+        <a href="profile.html" class="bs-nav-item">
+            <span class="bs-nav-ico">👤</span>
+            <span class="bs-nav-lbl">Profile</span>
+        </a>
+    </nav>
+
+</div>
+
+<!-- ===== CONFIRM MODAL ===== -->
+<div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal-box" id="modal-box">
+        <div class="modal-emoji" id="modal-emoji">⚡</div>
+        <h3 class="modal-title" id="modal-title">Tezlik Boost</h3>
+        <p class="modal-desc"  id="modal-desc">Sotib olmoqchimisiz?</p>
+        <div class="modal-price-row">
+            <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png"
+                 alt="TON" class="modal-ton-logo">
+            <span class="modal-price" id="modal-price">0.005 TON</span>
+        </div>
+        <div class="modal-btns">
+            <button class="modal-cancel" id="modal-cancel">Bekor</button>
+            <button class="modal-confirm" id="modal-confirm">
+                <span>SOTIB OLISH</span>
+                <div class="modal-shimmer"></div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="bs-toast hidden" id="bs-toast"></div>
+
+<script src="boost.js"></script>
+</body>
+</html>
