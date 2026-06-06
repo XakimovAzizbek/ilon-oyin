@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DEXO Snake - Profil</title>
+    <link rel="stylesheet" href="profile.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<div class="app-wrap">
+
+    <!-- HEADER -->
+    <header class="pf-header">
+        <a href="home.html" class="pf-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+        </a>
+        <span class="pf-title">PROFIL</span>
+        <div class="pf-spacer"></div>
+    </header>
+
+    <!-- SCROLL CONTENT -->
+    <div class="pf-scroll">
+
+        <!-- AVATAR HERO -->
+        <div class="pf-hero">
+            <div class="pf-hero-glow"></div>
+            <div class="pf-avatar" id="pf-avatar">?</div>
+            <h2 class="pf-name" id="pf-name">Yuklanmoqda...</h2>
+            <p class="pf-id"   id="pf-id">ID: —</p>
+            <div class="pf-level" id="pf-level">🐣 Yangi boshlagan</div>
+        </div>
+
+        <!-- BALANS + WITHDRAW -->
+        <div class="pf-balance-card">
+            <div class="pf-bal-left">
+                <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png"
+                     alt="TON" class="pf-ton-logo">
+                <div class="pf-bal-texts">
+                    <span class="pf-bal-label">BALANS</span>
+                    <span class="pf-bal-amount" id="pf-balance">0.00000 TON</span>
+                </div>
+            </div>
+            <button class="pf-wd-btn" id="btn-withdraw">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5">
+                    <path d="M12 5v14M5 12l7 7 7-7"/>
+                </svg>
+                Withdraw
+            </button>
+        </div>
+
+        <!-- STATISTIKA -->
+        <p class="pf-section-label">Statistika</p>
+        <div class="pf-stats">
+            <div class="pf-stat-box">
+                <span class="pf-stat-ico">🎮</span>
+                <span class="pf-stat-num" id="st-games">0</span>
+                <span class="pf-stat-lbl">O'yinlar</span>
+            </div>
+            <div class="pf-stat-box">
+                <span class="pf-stat-ico">💀</span>
+                <span class="pf-stat-num" id="st-kills">0</span>
+                <span class="pf-stat-lbl">O'ldirdi</span>
+            </div>
+            <div class="pf-stat-box">
+                <span class="pf-stat-ico">🐍</span>
+                <span class="pf-stat-num" id="st-maxlen">0</span>
+                <span class="pf-stat-lbl">Max uzunlik</span>
+            </div>
+            <div class="pf-stat-box">
+                <span class="pf-stat-ico">💰</span>
+                <span class="pf-stat-num pf-blue" id="st-ton">0.000</span>
+                <span class="pf-stat-lbl">TON ishlagan</span>
+            </div>
+        </div>
+
+        <!-- SO'NGGI O'YINLAR -->
+        <p class="pf-section-label">So'nggi O'yinlar</p>
+        <div id="pf-history" class="pf-history">
+            <div class="pf-empty">
+                <span>🎯</span>
+                <p>Hali o'yin o'ynanmagan</p>
+            </div>
+        </div>
+
+    </div><!-- /pf-scroll -->
+
+    <!-- BOTTOM NAV -->
+    <nav class="pf-nav">
+        <a href="market.html" class="pf-nav-item">
+            <span class="pf-nav-ico">🛒</span>
+            <span class="pf-nav-lbl">Market</span>
+        </a>
+        <a href="boost.html" class="pf-nav-item">
+            <span class="pf-nav-ico">⚡</span>
+            <span class="pf-nav-lbl">Boost</span>
+        </a>
+        <a href="profile.html" class="pf-nav-item pf-nav-active">
+            <span class="pf-nav-ico">👤</span>
+            <span class="pf-nav-lbl">Profile</span>
+        </a>
+    </nav>
+
+</div><!-- /app-wrap -->
+
+<!-- ============ WITHDRAW MODAL ============ -->
+<div class="wd-overlay hidden" id="wd-overlay">
+    <div class="wd-sheet" id="wd-sheet">
+
+        <!-- drag handle -->
+        <div class="wd-handle"></div>
+
+        <!-- close -->
+        <button class="wd-x" id="wd-x">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+
+        <!-- ---- FORM VIEW ---- -->
+        <div id="wd-form-view">
+            <div class="wd-top">
+                <div class="wd-logo-circle">
+                    <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png"
+                         alt="TON" class="wd-logo-img">
+                </div>
+                <h3 class="wd-heading">TON Yechib Olish</h3>
+                <p class="wd-sub">Mavjud: <span class="wd-avail-val" id="wd-avail">0.00000</span> TON</p>
+            </div>
+
+            <!-- Wallet -->
+            <label class="wd-label">Hamyon manzili</label>
+            <div class="wd-field">
+                <input id="wd-addr" class="wd-input" type="text"
+                       placeholder="EQC... yoki UQC..." maxlength="70">
+            </div>
+
+            <!-- Miqdor -->
+            <label class="wd-label">Miqdor (TON)</label>
+            <div class="wd-field">
+                <input id="wd-amt" class="wd-input wd-input-num" type="number"
+                       placeholder="0.00000" min="0.001" step="0.001">
+                <button class="wd-max" id="wd-max">MAX</button>
+            </div>
+            <p class="wd-hint">Min: 0.001 TON &nbsp;·&nbsp; Komissiya: 0.001 TON</p>
+
+            <!-- Tezkor summalar -->
+            <div class="wd-quick">
+                <button class="wd-qbtn" data-v="0.001">0.001</button>
+                <button class="wd-qbtn" data-v="0.005">0.005</button>
+                <button class="wd-qbtn" data-v="0.01">0.01</button>
+                <button class="wd-qbtn" data-v="0.05">0.05</button>
+            </div>
+
+            <!-- Hisob -->
+            <div class="wd-calc hidden" id="wd-calc">
+                <div class="wd-calc-row">
+                    <span>Miqdor</span>
+                    <span id="wc-amt">—</span>
+                </div>
+                <div class="wd-calc-row">
+                    <span>Komissiya</span>
+                    <span class="wd-red">-0.001 TON</span>
+                </div>
+                <div class="wd-calc-row wd-calc-total">
+                    <span>Siz olasiz</span>
+                    <span class="wd-green" id="wc-get">—</span>
+                </div>
+            </div>
+
+            <!-- Xato -->
+            <div class="wd-err hidden" id="wd-err"></div>
+
+            <!-- Tasdiqlash -->
+            <button class="wd-submit" id="wd-submit">
+                <span id="wd-submit-txt">TASDIQLASH</span>
+                <div class="wd-shimmer"></div>
+            </button>
+        </div><!-- /wd-form-view -->
+
+        <!-- ---- SUCCESS VIEW ---- -->
+        <div id="wd-ok-view" class="hidden">
+            <div class="wd-ok-wrap">
+                <div class="wd-ok-icon">
+                    <svg viewBox="0 0 52 52" width="70" height="70">
+                        <circle class="ok-circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path   class="ok-check"  fill="none" d="M14 27l8 8 16-16"/>
+                    </svg>
+                </div>
+                <h3 class="wd-ok-title">So'rov Yuborildi!</h3>
+                <p class="wd-ok-desc">
+                    Withdraw so'rovingiz qabul qilindi.<br>
+                    24 soat ichida hamyoningizga o'tkaziladi.
+                </p>
+                <button class="wd-submit" id="wd-done">YOPISH</button>
+            </div>
+        </div>
+
+    </div><!-- /wd-sheet -->
+</div><!-- /wd-overlay -->
+
+<script src="profile.js"></script>
+</body>
+</html>

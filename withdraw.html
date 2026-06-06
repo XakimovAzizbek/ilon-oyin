@@ -1,0 +1,121 @@
+cat > /home/claude/withdraw.html << 'EOF'
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DEXO - Withdraw</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="profile.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head>
+<body class="withdraw-body">
+
+<div class="withdraw-container">
+
+    <!-- Yopish tugmasi -->
+    <button class="wd-close-btn" id="btn-close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+    </button>
+
+    <!-- Sarlavha -->
+    <div class="wd-header">
+        <div class="wd-icon-wrap">
+            <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png"
+                 alt="TON" class="wd-ton-logo">
+        </div>
+        <h2 class="wd-title">TON Yechib Olish</h2>
+        <p class="wd-subtitle">Mavjud balans: <span class="wd-avail" id="wd-avail">0.00000</span> TON</p>
+    </div>
+
+    <!-- FORM -->
+    <div class="wd-form">
+
+        <!-- Wallet manzil -->
+        <div class="wd-field">
+            <label class="wd-label">TON Hamyon Manzili</label>
+            <div class="wd-input-wrap">
+                <input type="text" id="wd-address"
+                       class="wd-input"
+                       placeholder="EQC...yoki UQC..."
+                       maxlength="70">
+            </div>
+            <p class="wd-hint">TON wallet manzilingizni kiriting</p>
+        </div>
+
+        <!-- Miqdor -->
+        <div class="wd-field">
+            <label class="wd-label">Miqdor (TON)</label>
+            <div class="wd-input-wrap">
+                <input type="number" id="wd-amount"
+                       class="wd-input"
+                       placeholder="0.00000"
+                       min="0.001" step="0.001">
+                <button class="wd-max-btn" id="btn-max">MAX</button>
+            </div>
+            <p class="wd-hint">Minimal: 0.001 TON · Komissiya: 0.001 TON</p>
+        </div>
+
+        <!-- Tezkor summa tugmalari -->
+        <div class="quick-amounts">
+            <button class="qa-btn" data-val="0.001">0.001</button>
+            <button class="qa-btn" data-val="0.005">0.005</button>
+            <button class="qa-btn" data-val="0.01">0.01</button>
+            <button class="qa-btn" data-val="0.05">0.05</button>
+        </div>
+
+        <!-- Hisob-kitob -->
+        <div class="wd-summary" id="wd-summary" style="display:none">
+            <div class="wd-row">
+                <span>Yechib olish miqdori</span>
+                <span id="sum-amount" class="wd-val">—</span>
+            </div>
+            <div class="wd-row">
+                <span>Komissiya</span>
+                <span class="wd-val red-val">-0.001 TON</span>
+            </div>
+            <div class="wd-row wd-total-row">
+                <span>Siz olasiz</span>
+                <span id="sum-receive" class="wd-val green-val">—</span>
+            </div>
+        </div>
+
+        <!-- Xato xabar -->
+        <div class="wd-error hidden" id="wd-error"></div>
+
+        <!-- Tasdiqlash tugmasi -->
+        <button class="wd-submit-btn" id="btn-submit">
+            <span id="btn-submit-text">TASDIQLASH</span>
+            <div class="btn-shimmer"></div>
+        </button>
+
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="wd-success hidden" id="wd-success">
+        <div class="success-icon">
+            <svg viewBox="0 0 52 52" width="60" height="60">
+                <circle class="sc-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="sc-check" fill="none" d="M14 27l8 8 16-16"/>
+            </svg>
+        </div>
+        <h3 class="success-title">So'rov Yuborildi!</h3>
+        <p class="success-desc">
+            Withdraw so'rovingiz qabul qilindi.<br>
+            24 soat ichida hamyoningizga o'tkaziladi.
+        </p>
+        <button class="wd-submit-btn" id="btn-done">YOPISH</button>
+    </div>
+
+</div>
+
+<script src="profile.js"></script>
+</body>
+</html>
+EOF
+echo "withdraw.html done"
