@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DEXO Snake - Market</title>
+    <link rel="stylesheet" href="market.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head>
+<body>
+<div class="app-wrap">
+
+    <!-- HEADER -->
+    <header class="mk-header">
+        <a href="home.html" class="mk-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+        </a>
+        <span class="mk-title">MARKET</span>
+        <div class="mk-bal-chip">
+            <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png"
+                 alt="TON" class="mk-bal-logo">
+            <span id="mk-balance">0.00000</span>
+        </div>
+    </header>
+
+    <!-- CATEGORY TABS -->
+    <div class="mk-tabs">
+        <button class="mk-tab active" data-tab="skins">🎨 Skinlar</button>
+        <button class="mk-tab" data-tab="badges">🏷️ Badgelar</button>
+        <button class="mk-tab" data-tab="arenas">🌍 Arenalar</button>
+        <button class="mk-tab" data-tab="vip">💎 VIP</button>
+    </div>
+
+    <!-- SCROLL -->
+    <div class="mk-scroll">
+
+        <!-- ===== SKINLAR TAB ===== -->
+        <div id="tab-skins" class="mk-tab-content active">
+
+            <div class="mk-section-label">Ilon Rang Paketlari</div>
+            <div class="mk-section-sub">Vaqtinchalik · O'yin ichida ko'rinadi</div>
+
+            <div class="skin-grid" id="skin-grid">
+
+                <div class="skin-card" data-id="neon"
+                     data-name="Neon" data-price="0.05" data-days="30"
+                     data-c1="#00e5ff" data-c2="#0055ff">
+                    <div class="skin-preview">
+                        <div class="snake-preview-wrap">
+                            <div class="sp-seg sp1" style="background:radial-gradient(circle,#00e5ff,#0055ff)"></div>
+                            <div class="sp-seg sp2" style="background:radial-gradient(circle,#00e5ff,#0055ff)"></div>
+                            <div class="sp-seg sp3" style="background:radial-gradient(circle,#00e5ff,#0055ff)"></div>
+                            <div class="sp-seg sp4" style="background:radial-gradient(circle,#00e5ff,#0055ff)"></div>
+                            <div class="sp-seg sp5" style="background:radial-gradient(circle,#00e5ff,#0055ff)"></div>
+                        </div>
+                    </div>
+                    <span class="skin-name">⚡ Neon</span>
+                    <span class="skin-days">30 kunlik</span>
+                    <div class="skin-status-bar" id="sb-neon"></div>
+                    <button class="mk-buy-btn" data-id="neon">
+                        <span class="btn-txt" id="btxt-neon">0.05 TON</span>
+                    </button>
+                </div>
+
+                <div class="skin-card" data-id="galaxy"
+                     data-name="Galaxy" data-price="0.07" data-days="30"
+                     data-c1="#b829ff" data-c2="#ff0080">
+                    <div class="skin-preview">
+                        <div class="skin-preview-bg" style="background:radial-gradient(circle,#2d0050,#0d0020)"></div>
+                        <div class="snake-preview-wrap">
+                            <div class="sp-seg sp1" style="background:radial-gradient(circle,#b829ff,#ff0080)"></div>
+                            <div class="sp-seg sp2" style="background:radial-gradient(circle,#b829ff,#ff0080)"></div>
+                            <div class="sp-seg sp3" style="background:radial-gradient(circle,#b829ff,#ff0080)"></div>
+                            <div class="sp-seg sp4" style="background:radial-gradient(circle,#b829ff,#ff0080)"></div>
+                            <div class="sp-seg sp5" style="background:radial-gradient(circle,#b829ff,#ff0080)"></div>
+                        </div>
+                    </div>
+                    <span class="skin-name">🌌 Galaxy</span>
+                    <span class="skin-days">30 kunlik</span>
+                    <div class="skin-status-bar" id="sb-galaxy"></div>
+                    <button class="mk-buy-btn" data-id="galaxy">
+                        <span class="btn-txt" id="btxt-galaxy">0.07 TON</span>
+                    </button>
+                </div>
+
+                <div class="skin-card" data-id="fire"
+                     data-name="Fire" data-price="0.06" data-days="14"
+                     data-c1="#ff6400" data-c2="#ff0000">
+                    <div class="skin-preview">
+                        <div class="skin-preview-bg" style="background:radial-gradient(circle,#3d0800,#1a0000)"></div>
+                        <div class="snake-preview-wrap">
+                            <div class="sp-seg sp1" style="background:radial-gradient(circle,#ff6400,#ff0000)"></div>
+                            <div class="sp-seg sp2" style="background:radial-gradient(circle,#ff6400,#ff0000)"></div>
+                            <div class="sp-seg sp3" style="background:radial-gradient(circle,#ff6400,#ff0000)"></div>
+                            <div class="sp-seg sp4" style="background:radial-gradient(circle,#ff6400,#ff0000)"></div>
+                            <div class="sp-seg sp5" style="background:radial-gradient(circle,#ff6400,#ff0000)"></div>
+                        </div>
+                    </div>
+                    <span class="skin-name">🔥 Fire</span>
+                    <span class="skin-days">14 kunlik</span>
+                    <div class="skin-status-bar" id="sb-fire"></div>
+                    <button class="mk-buy-btn" data-id="fire">
+                        <span class="btn-txt" id="btxt-fire">0.06 TON</span>
+                    </button>
+                </div>
+
+                <div class="skin-card" data-id="ice"
+                     data-name="Ice" data-price="0.05" data-days="14"
+                     data-c1="#a8edff" data-c2="#0088cc">
+                    <div class="skin-preview">
+                        <div class="skin-preview-bg" style="background:radial-gradient(circle,#001a2d,#000d1a)"></div>
+                        <div class="snake-preview-wrap">
+                            <div class="sp-seg sp1" style="background:radial-gradient(circle,#a8edff,#0088cc)"></div>
+                            <div class="sp-seg sp2" style="background:radial-gradient(circle,#a8edff,#0088cc)"></div>
+                            <div class="sp-seg sp3" style="background:radial-gradient(circle,#a8edff,#0088cc)"></div>
+                            <div class="sp-seg sp4" style="background:radial-gradient(circle,#a8edff,#0088cc)"></div>
+                            <div class="sp-seg sp5" style="background:radial-gradient(circle,#a8edff,#0088cc)"></div>
+                        </div>
+                    </div>
+                    <span class="skin-name">❄️ Ice</span>
+                    <span class="skin-days">14 kunlik</span>
+                    <div class="skin-status-bar" id="sb-ice"></div>
+                    <button class="mk-buy-btn" data-id="ice">
+                        <span class="btn-txt" id="btxt-ice">0.05 TON</span>
+                    </button>
+                </div>
+
+                <div class="skin-card" data-id="gold"
+                     data-name="Gold" data-price="0.1" data-days="7"
+                     data-c1="#ffd700" data-c2="#ff8c00">
+                    <div class="skin-preview">
+                        <div class="skin-preview-bg" style="background:radial-gradient(circle,#2a1a00,#1a0e00)"></div>
+                        <div class="snake-preview-wrap">
+                            <div class="sp-seg sp1" style="background:radial-gradient(circle,#ffd700,#ff8c00)"></div>
+                            <div class="sp-seg sp2" style="background:radial-gradient(circle,#ffd700,#ff8c00)"></div>
+                            <div class="sp-seg sp3" style="background:radial-gradient(circle,#ffd700,#ff8c00)"></div>
+                            <div class="sp-seg sp4" style="background:radial-gradient(circle,#ffd700,#ff8c00)"></div>
+                            <div class="sp-seg sp5" style="background:radial-gradient(circle,#ffd700,#ff8c00)"></div>
+                        </div>
+                    </div>
+                    <span class="skin-name">👑 Gold</span>
+                    <span class="skin-days">7 kunlik</span>
+                    <div class="skin-status-bar" id="sb-gold"></div>
+                    <button class="mk-buy-btn" data-id="gold">
+                        <span class="btn-txt" id="btxt-gold">0.1 TON</span>
+                    </button>
+                </div>
+
+                <div class="skin-card" data-id="matrix"
+                     data-name="Matrix" data-price="0.08" data-days="14"
+                     data-c1="#00ff44" data-c2="#008822">
+                    <div class="skin-preview">
+                        <div class="skin-preview-bg" style="background:radial-gradient(circle,#001a00,#000d00)"></div>
+                        <div class="snake-preview-wrap">
+                            <div class="sp-seg sp1" style="background:radial-gradient(circle,#00ff44,#008822)"></div>
+                            <div class="sp-seg sp2" style="background:radial-gradient(circle,#00ff44,#008822)"></div>
+                            <div class="sp-seg sp3" style="background:radial-gradient(circle,#00ff44,#008822)"></div>
+                            <div class="sp-seg sp4" style="background:radial-gradient(circle,#00ff44,#008822)"></div>
+                            <div class="sp-seg sp5" style="background:radial-gradient(circle,#00ff44,#008822)"></div>
+                        </div>
+                    </div>
+                    <span class="skin-name">💚 Matrix</span>
+                    <span class="skin-days">14 kunlik</span>
+                    <div class="skin-status-bar" id="sb-matrix"></div>
+                    <button class="mk-buy-btn" data-id="matrix">
+                        <span class="btn-txt" id="btxt-matrix">0.08 TON</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Ko'z dizayni -->
+            <div class="mk-section-label" style="margin-top:8px">Ko'z Dizayni</div>
+            <div class="mk-section-sub">7 kunlik · O'yin ichida ko'rinadi</div>
+            <div class="eye-list">
+                <div class="eye-card" data-id="eye_angry" data-name="Jahldor Ko'z"
+                     data-price="0.02" data-days="7">
+                    <span class="eye-emoji">😡</span>
+                    <div class="eye-info">
+                        <span class="eye-name">Jahldor Ko'z</span>
+                        <span class="eye-days">7 kun · 0.02 TON</span>
+                    </div>
+                    <button class="eye-btn mk-buy-btn" data-id="eye_angry">
+                        <span class="btn-txt" id="btxt-eye_angry">SOTIB OL</span>
+                    </button>
+                </div>
+                <div class="eye-card" data-id="eye_star" data-name="Yulduz Ko'z"
+                     data-price="0.02" data-days="7">
+                    <span class="eye-emoji">🌟</span>
+                    <div class="eye-info">
+                        <span class="eye-name">Yulduz Ko'z</span>
+                        <span class="eye-days">7 kun · 0.02 TON</span>
+                    </div>
+                    <button class="eye-btn mk-buy-btn" data-id="eye_star">
+                        <span class="btn-txt" id="btxt-eye_star">SOTIB OL</span>
+                    </button>
+                </div>
+                <div class="eye-card" data-id="eye_heart" data-name="Yurak Ko'z"
+                     data-price="0.02" data-days="7">
+                    <span class="eye-emoji">❤️</span>
+                    <div class="eye-info">
+                        <span class="eye-name">Yurak Ko'z</span>
+                        <span class="eye-days">7 kun · 0.02 TON</span>
+                    </div>
+                    <button class="eye-btn mk-buy-btn" data-id="eye_heart">
+                        <span class="btn-txt" id="btxt-eye_heart">SOTIB OL</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== BADGELAR TAB ===== -->
+        <div id="tab-badges" class="mk-tab-content hidden">
+            <div class="mk-section-label">Ism Rangi</div>
+            <div class="mk-section-sub">14 kunlik · Ilon ustidagi ismingiz rangi o'zgaradi</div>
+            <div class="badge-grid">
+                <div class="badge-card" data-id="name_gold" data-name="Oltin Ism"
+                     data-price="0.03" data-days="14">
+                    <span class="badge-preview" style="color:#ffd700;font-weight:800;font-size:15px">ISMING</span>
+                    <span class="badge-name">👑 Oltin</span>
+                    <button class="mk-buy-btn badge-btn" data-id="name_gold">
+                        <span class="btn-txt" id="btxt-name_gold">0.03 TON</span>
+                    </button>
+                </div>
+                <div class="badge-card" data-id="name_red" data-name="Qizil Ism"
+                     data-price="0.02" data-days="14">
+                    <span class="badge-preview" style="color:#ff3366;font-weight:800;font-size:15px">ISMING</span>
+                    <span class="badge-name">🔴 Qizil</span>
+                    <button class="mk-buy-btn badge-btn" data-id="name_red">
+                        <span class="btn-txt" id="btxt-name_red">0.02 TON</span>
+                    </button>
+                </div>
+                <div class="badge-card" data-id="name_grad" data-name="Gradient Ism"
+                     data-price="0.05" data-days="14">
+                    <span class="badge-preview" style="background:linear-gradient(90deg,#00e5ff,#b829ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;font-size:15px">ISMING</span>
+                    <span class="badge-name">🌈 Gradient</span>
+                    <button class="mk-buy-btn badge-btn" data-id="name_grad">
+                        <span class="btn-txt" id="btxt-name_grad">0.05 TON</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mk-section-label" style="margin-top:8px">Ilon Ustidagi Badge</div>
+            <div class="mk-section-sub">7 kunlik · Ismingiz ustida ko'rinadi</div>
+            <div class="emoji-badge-grid">
+                <div class="emoji-badge-card" data-id="badge_crown"
+                     data-name="Toj" data-price="0.03" data-days="7">
+                    <span class="eb-icon">👑</span>
+                    <span class="eb-name">Toj</span>
+                    <span class="eb-days">7 kun</span>
+                    <button class="mk-buy-btn eb-btn" data-id="badge_crown">
+                        <span class="btn-txt" id="btxt-badge_crown">0.03 TON</span>
+                    </button>
+                </div>
+                <div class="emoji-badge-card" data-id="badge_fire"
+                     data-name="Olov" data-price="0.02" data-days="7">
+                    <span class="eb-icon">🔥</span>
+                    <span class="eb-name">Olov</span>
+                    <span class="eb-days">7 kun</span>
+                    <button class="mk-buy-btn eb-btn" data-id="badge_fire">
+                        <span class="btn-txt" id="btxt-badge_fire">0.02 TON</span>
+                    </button>
+                </div>
+                <div class="emoji-badge-card" data-id="badge_skull"
+                     data-name="Bosh Suyak" data-price="0.02" data-days="7">
+                    <span class="eb-icon">💀</span>
+                    <span class="eb-name">Bosh Suyak</span>
+                    <span class="eb-days">7 kun</span>
+                    <button class="mk-buy-btn eb-btn" data-id="badge_skull">
+                        <span class="btn-txt" id="btxt-badge_skull">0.02 TON</span>
+                    </button>
+                </div>
+                <div class="emoji-badge-card" data-id="badge_star"
+                     data-name="Yulduz" data-price="0.02" data-days="7">
+                    <span class="eb-icon">⭐</span>
+                    <span class="eb-name">Yulduz</span>
+                    <span class="eb-days">7 kun</span>
+                    <button class="mk-buy-btn eb-btn" data-id="badge_star">
+                        <span class="btn-txt" id="btxt-badge_star">0.02 TON</span>
+                    </button>
+                </div>
+                <div class="emoji-badge-card" data-id="badge_lightning"
+                     data-name="Chaqmoq" data-price="0.02" data-days="7">
+                    <span class="eb-icon">⚡</span>
+                    <span class="eb-name">Chaqmoq</span>
+                    <span class="eb-days">7 kun</span>
+                    <button class="mk-buy-btn eb-btn" data-id="badge_lightning">
+                        <span class="btn-txt" id="btxt-badge_lightning">0.02 TON</span>
+                    </button>
+                </div>
+                <div class="emoji-badge-card" data-id="badge_diamond"
+                     data-name="Olmos" data-price="0.05" data-days="7">
+                    <span class="eb-icon">💎</span>
+                    <span class="eb-name">Olmos</span>
+                    <span class="eb-days">7 kun</span>
+                    <button class="mk-buy-btn eb-btn" data-id="badge_diamond">
+                        <span class="btn-txt" id="btxt-badge_diamond">0.05 TON</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIP Neon Chegara -->
+            <div class="mk-section-label" style="margin-top:8px">Ilon Atrofi Chegara</div>
+            <div class="mk-section-sub">14 kunlik · Ilon atrofida neon ramka</div>
+            <div class="border-list">
+                <div class="border-card" data-id="border_cyan"
+                     data-name="Moviy Chegara" data-price="0.04" data-days="14">
+                    <div class="border-preview" style="border:2px solid #00e5ff;box-shadow:0 0 10px #00e5ff"></div>
+                    <div class="border-info">
+                        <span class="border-name">💠 Moviy Chegara</span>
+                        <span class="border-sub">14 kun · 0.04 TON</span>
+                    </div>
+                    <button class="mk-buy-btn border-btn" data-id="border_cyan">
+                        <span class="btn-txt" id="btxt-border_cyan">SOTIB OL</span>
+                    </button>
+                </div>
+                <div class="border-card" data-id="border_gold"
+                     data-name="Oltin Chegara" data-price="0.06" data-days="14">
+                    <div class="border-preview" style="border:2px solid #ffd700;box-shadow:0 0 10px #ffd700"></div>
+                    <div class="border-info">
+                        <span class="border-name">🌟 Oltin Chegara</span>
+                        <span class="border-sub">14 kun · 0.06 TON</span>
+                    </div>
+                    <button class="mk-buy-btn border-btn" data-id="border_gold">
+                        <span class="btn-txt" id="btxt-border_gold">SOTIB OL</span>
+                    </button>
+                </div>
+                <div class="border-card" data-id="border_rainbow"
+                     data-name="Kamalak Chegara" data-price="0.1" data-days="7">
+                    <div class="border-preview" style="border:2px solid transparent;background:linear-gradient(#141720,#141720) padding-box,linear-gradient(135deg,#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#8b00ff) border-box;box-shadow:0 0 12px rgba(255,100,100,0.5)"></div>
+                    <div class="border-info">
+                        <span class="border-name">🌈 Kamalak Chegara</span>
+                        <span class="border-sub">7 kun · 0.1 TON</span>
+                    </div>
+                    <button class="mk-buy-btn border-btn" data-id="border_rainbow">
+                        <span class="btn-txt" id="btxt-border_rainbow">SOTIB OL</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ARENALAR TAB ===== -->
+        <div id="tab-arenas" class="mk-tab-content hidden">
+            <div class="mk-section-label">Arena Foni</div>
+            <div class="mk-section-sub">O'yin paytida arena ko'rinishi o'zgaradi</div>
+            <div class="arena-list">
+
+                <div class="arena-card" data-id="arena_space"
+                     data-name="Space" data-price="0.08" data-days="30">
+                    <div class="arena-preview ap-space">
+                        <span class="arena-prev-ico">🌌</span>
+                    </div>
+                    <div class="arena-info">
+                        <span class="arena-name">🌌 Space</span>
+                        <span class="arena-sub">Qora osmon, yulduzlar</span>
+                        <span class="arena-days-lbl">30 kunlik</span>
+                    </div>
+                    <button class="mk-buy-btn arena-btn" data-id="arena_space">
+                        <span class="btn-txt" id="btxt-arena_space">0.08 TON</span>
+                    </button>
+                </div>
+
+                <div class="arena-card" data-id="arena_ocean"
+                     data-name="Ocean" data-price="0.07" data-days="30">
+                    <div class="arena-preview ap-ocean">
+                        <span class="arena-prev-ico">🌊</span>
+                    </div>
+                    <div class="arena-info">
+                        <span class="arena-name">🌊 Ocean</span>
+                        <span class="arena-sub">Ko'k to'lqinlar foni</span>
+                        <span class="arena-days-lbl">30 kunlik</span>
+                    </div>
+                    <button class="mk-buy-btn arena-btn" data-id="arena_ocean">
+                        <span class="btn-txt" id="btxt-arena_ocean">0.07 TON</span>
+                    </button>
+                </div>
+
+                <div class="arena-card" data-id="arena_lava"
+                     data-name="Lava" data-price="0.09" data-days="14">
+                    <div class="arena-preview ap-lava">
+                        <span class="arena-prev-ico">🌋</span>
+                    </div>
+                    <div class="arena-info">
+                        <span class="arena-name">🌋 Lava</span>
+                        <span class="arena-sub">Qizil-to'q fon, olov</span>
+                        <span class="arena-days-lbl">14 kunlik</span>
+                    </div>
+                    <button class="mk-buy-btn arena-btn" data-id="arena_lava">
+                        <span class="btn-txt" id="btxt-arena_lava">0.09 TON</span>
+                    </button>
+                </div>
+
+                <div class="arena-card" data-id="arena_matrix"
+                     data-name="Matrix" data-price="0.08" data-days="14">
+                    <div class="arena-preview ap-matrix">
+                        <span class="arena-prev-ico">💚</span>
+                    </div>
+                    <div class="arena-info">
+                        <span class="arena-name">💚 Matrix</span>
+                        <span class="arena-sub">Yashil kod yomg'iri</span>
+                        <span class="arena-days-lbl">14 kunlik</span>
+                    </div>
+                    <button class="mk-buy-btn arena-btn" data-id="arena_matrix">
+                        <span class="btn-txt" id="btxt-arena_matrix">0.08 TON</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Ovqat ko'rinishi -->
+            <div class="mk-section-label" style="margin-top:8px">Ovqat Ko'rinishi</div>
+            <div class="mk-section-sub">14 kunlik · Ovqat emoji bilan ko'rinadi</div>
+            <div class="food-grid">
+                <div class="food-card" data-id="food_apple"
+                     data-name="Olma" data-price="0.03" data-days="14">
+                    <span class="food-ico">🍎</span>
+                    <span class="food-name">Olma</span>
+                    <button class="mk-buy-btn food-btn" data-id="food_apple">
+                        <span class="btn-txt" id="btxt-food_apple">0.03 TON</span>
+                    </button>
+                </div>
+                <div class="food-card" data-id="food_diamond"
+                     data-name="Olmos" data-price="0.05" data-days="14">
+                    <span class="food-ico">💎</span>
+                    <span class="food-name">Olmos</span>
+                    <button class="mk-buy-btn food-btn" data-id="food_diamond">
+                        <span class="btn-txt" id="btxt-food_diamond">0.05 TON</span>
+                    </button>
+                </div>
+                <div class="food-card" data-id="food_star"
+                     data-name="Yulduz" data-price="0.04" data-days="14">
+                    <span class="food-ico">⭐</span>
+                    <span class="food-name">Yulduz</span>
+                    <button class="mk-buy-btn food-btn" data-id="food_star">
+                        <span class="btn-txt" id="btxt-food_star">0.04 TON</span>
+                    </button>
+                </div>
+                <div class="food-card" data-id="food_coin"
+                     data-name="Tanga" data-price="0.04" data-days="14">
+                    <span class="food-ico">🪙</span>
+                    <span class="food-name">Tanga</span>
+                    <button class="mk-buy-btn food-btn" data-id="food_coin">
+                        <span class="btn-txt" id="btxt-food_coin">0.04 TON</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== VIP TAB ===== -->
+        <div id="tab-vip" class="mk-tab-content hidden">
+
+            <div class="vip-hero">
+                <div class="vip-hero-glow"></div>
+                <span class="vip-hero-ico">💎</span>
+                <h2 class="vip-hero-title">VIP PAKET</h2>
+                <p class="vip-hero-sub">Eng yaxshi paket — hamma afzalliklar</p>
+            </div>
+
+            <div class="vip-list">
+
+                <!-- 7 kunlik VIP -->
+                <div class="vip-card vc-week" data-id="vip_7"
+                     data-name="VIP 7 kun" data-price="0.2" data-days="7">
+                    <div class="vip-card-badge">7 KUN</div>
+                    <div class="vip-card-top">
+                        <span class="vip-card-ico">🥈</span>
+                        <div>
+                            <span class="vip-card-name">Silver VIP</span>
+                            <span class="vip-card-price">0.2 TON</span>
+                        </div>
+                    </div>
+                    <ul class="vip-features">
+                        <li>✅ Gold skin (7 kun)</li>
+                        <li>✅ 👑 Toj badge</li>
+                        <li>✅ Oltin ism rangi</li>
+                        <li>✅ Oltin chegara</li>
+                        <li>✅ Space arena</li>
+                    </ul>
+                    <button class="vip-btn mk-buy-btn" data-id="vip_7">
+                        <span class="btn-txt" id="btxt-vip_7">0.2 TON · SOTIB OL</span>
+                        <div class="vip-shimmer"></div>
+                    </button>
+                </div>
+
+                <!-- 30 kunlik VIP -->
+                <div class="vip-card vc-month" data-id="vip_30"
+                     data-name="VIP 30 kun" data-price="0.5" data-days="30">
+                    <div class="vip-card-badge hot">🔥 MASHHUR</div>
+                    <div class="vip-card-top">
+                        <span class="vip-card-ico">🥇</span>
+                        <div>
+                            <span class="vip-card-name">Gold VIP</span>
+                            <span class="vip-card-price">0.5 TON</span>
+                        </div>
+                    </div>
+                    <ul class="vip-features">
+                        <li>✅ Barcha skinlar (30 kun)</li>
+                        <li>✅ 💎 Olmos badge</li>
+                        <li>✅ Gradient ism rangi</li>
+                        <li>✅ Kamalak chegara</li>
+                        <li>✅ Barcha arena fonlar</li>
+                        <li>✅ Barcha ovqat ko'rinishlari</li>
+                    </ul>
+                    <button class="vip-btn mk-buy-btn" data-id="vip_30">
+                        <span class="btn-txt" id="btxt-vip_30">0.5 TON · SOTIB OL</span>
+                        <div class="vip-shimmer"></div>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Mening aktiv itemlarim -->
+            <div class="mk-section-label" style="margin-top:8px">Aktiv Itemlar</div>
+            <div id="active-items-list" class="active-items-list">
+                <div class="no-items">Hozircha aktiv item yo'q</div>
+            </div>
+
+        </div>
+
+        <div style="height:8px"></div>
+    </div><!-- /mk-scroll -->
+
+    <!-- BOTTOM NAV -->
+    <nav class="mk-nav">
+        <a href="market.html" class="mk-nav-item mk-nav-active">
+            <span class="mk-nav-ico">🛒</span>
+            <span class="mk-nav-lbl">Market</span>
+        </a>
+        <a href="boost.html" class="mk-nav-item">
+            <span class="mk-nav-ico">⚡</span>
+            <span class="mk-nav-lbl">Boost</span>
+        </a>
+        <a href="profile.html" class="mk-nav-item">
+            <span class="mk-nav-ico">👤</span>
+            <span class="mk-nav-lbl">Profile</span>
+        </a>
+    </nav>
+
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-emoji" id="modal-emoji">🛒</div>
+        <h3 class="modal-title" id="modal-title">Item nomi</h3>
+        <p  class="modal-desc"  id="modal-desc">Sotib olmoqchimisiz?</p>
+        <div class="modal-meta">
+            <div class="modal-meta-row">
+                <span>Narxi</span>
+                <span class="modal-price" id="modal-price">—</span>
+            </div>
+            <div class="modal-meta-row">
+                <span>Muddati</span>
+                <span class="modal-days-val" id="modal-days">—</span>
+            </div>
+            <div class="modal-meta-row">
+                <span>Tugash sanasi</span>
+                <span class="modal-expire" id="modal-expire">—</span>
+            </div>
+        </div>
+        <div class="modal-btns">
+            <button class="modal-cancel" id="modal-cancel">Bekor</button>
+            <button class="modal-confirm" id="modal-confirm">
+                <span id="modal-confirm-txt">SOTIB OLISH</span>
+                <div class="modal-shimmer"></div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="mk-toast hidden" id="mk-toast"></div>
+
+<script src="market.js"></script>
+</body>
+</html>
